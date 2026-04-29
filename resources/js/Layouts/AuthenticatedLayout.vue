@@ -11,6 +11,7 @@ const showingNavigationDropdown = ref(false);
 </script>
 
 <template>
+    <v-app>
     <div>
         <div class="min-h-screen bg-gray-100">
             <nav
@@ -195,4 +196,5 @@ const showingNavigationDropdown = ref(false);
             </main>
         </div>
     </div>
+    </v-app>
 </template>
