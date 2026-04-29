@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+// ⬇️ Tambahan untuk relasi
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
@@ -45,5 +49,29 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | RELATIONSHIPS
+    |--------------------------------------------------------------------------
+    */
+
+    // 1 user punya 1 profile
+    public function profile(): HasOne
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    // user membuat banyak booking
+    public function bookings(): HasMany
+    {
+        return $this->hasMany(Booking::class);
+    }
+
+    // user sebagai admin/petugas yang memproses booking
+    public function processedBookings(): HasMany
+    {
+        return $this->hasMany(Booking::class, 'diproses_oleh');
     }
 }
