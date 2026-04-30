@@ -59,6 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/units/{unit}', [UnitController::class, 'show'])->name('units.show');
 
     Route::get('/bundles', [BundleController::class, 'index'])->name('bundles.index');
+    Route::get('/bundles/{bundle}', [BundleController::class, 'show'])->name('bundles.show');
 
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
     Route::get('/my-bookings', [BookingController::class, 'myBookings'])->name('bookings.mine');

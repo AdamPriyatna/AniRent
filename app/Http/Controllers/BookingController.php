@@ -62,9 +62,16 @@ class BookingController extends Controller
         }
 
         if (!empty($validated['bundle_id'])) {
-            $bundle = Bundle::findOrFail($validated['bundle_id']);
+            $bundle = Bundle::with('units')->findOrFail($validated['bundle_id']);
             if ($bundle->status !== 'tersedia') {
                 return back()->withErrors(['item' => 'Bundle ini sudah tidak tersedia.']);
+            }
+            
+            // Cek ketersediaan tiap unit di dalam bundle
+            foreach ($bundle->units as $u) {
+                if ($u->status !== 'tersedia') {
+                    return back()->withErrors(['item' => "Salah satu unit dalam paket ini ({$u->nama_unit}) sedang tidak tersedia."]);
+                }
             }
         }
 
@@ -89,7 +96,13 @@ class BookingController extends Controller
                 Unit::where('id', $validated['unit_id'])->update(['status' => 'dipinjam']);
             }
             if (!empty($validated['bundle_id'])) {
-                Bundle::where('id', $validated['bundle_id'])->update(['status' => 'disewa']);
+                $bundle = Bundle::with('units')->find($validated['bundle_id']);
+                $bundle->update(['status' => 'disewa']);
+                
+                // Update SEMUA unit di dalam bundle menjadi dipinjam
+                foreach ($bundle->units as $bu) {
+                    $bu->update(['status' => 'dipinjam']);
+                }
             }
         });
 
