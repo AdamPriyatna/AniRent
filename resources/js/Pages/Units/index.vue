@@ -147,7 +147,7 @@ const statusIcon = (status) => {
                         elevation="0"
                         border
                         class="unit-card h-100"
-                        :to="route('units.show', unit.id)"
+                        @click="router.get(route('units.show', unit.id))"
                     >
                         <!-- Foto Unit -->
                         <div class="unit-img-wrap">
@@ -230,7 +230,7 @@ const statusIcon = (status) => {
 
                         <v-card-actions class="pa-3">
                             <v-btn
-                                :to="route('units.show', unit.id)"
+                                @click.stop="router.get(route('units.show', unit.id))"
                                 variant="tonal"
                                 color="deep-purple-accent-2"
                                 size="small"

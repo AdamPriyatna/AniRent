@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Unit;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -23,6 +22,16 @@ class UnitController extends Controller
         return Inertia::render('Units/Index', [
             'units'   => $units,
             'filters' => $request->only('search'),
+        ]);
+    }
+
+    public function show(Unit $unit)
+    {
+        // load relasi kalau perlu
+        $unit->load('categories');
+
+        return Inertia::render('Units/Show', [
+            'unit' => $unit,
         ]);
     }
 }

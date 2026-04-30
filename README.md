@@ -17,7 +17,7 @@
 
 ## 👥 Nama Kelompok
 
-**Kelompok [Nomor Kelompok]**
+**Kelompok [Otaku :v]**
 
 ---
 
@@ -113,7 +113,7 @@ AniRent adalah aplikasi web berbasis Laravel yang digunakan untuk menyewa berbag
 
 ## 🗄️ Skema Database (ERD)
 
-> Screenshot ERD disisipkan di sini setelah project selesai
+
 
 ![ERD AniRent](docs/erd.png)
 
@@ -135,7 +135,7 @@ AniRent adalah aplikasi web berbasis Laravel yang digunakan untuk menyewa berbag
 
 ## 🎬 Demo Website
 
-> Video demo akan disisipkan di sini setelah project selesai
+
 
 [![Demo Video](docs/thumbnail.png)](docs/demo.mp4)
 

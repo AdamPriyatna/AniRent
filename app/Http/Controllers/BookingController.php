@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Unit;
+use App\Models\Bundle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use Inertia\Inertia;
 
 class BookingController extends Controller
@@ -29,17 +33,65 @@ class BookingController extends Controller
             return back()->withErrors(['item' => 'Pilih unit atau bundle yang ingin dipinjam.']);
         }
 
-        $kode = 'BK-' . strtoupper(uniqid());
+        $user = auth()->user();
 
-        Booking::create([
-            'kode_booking'           => $kode,
-            'user_id'                => auth()->id(),
-            'unit_id'                => $validated['unit_id']   ?? null,
-            'bundle_id'              => $validated['bundle_id'] ?? null,
-            'tanggal_mulai'          => $validated['tanggal_mulai'],
-            'tanggal_selesai_rencana'=> $validated['tanggal_selesai_rencana'],
-            'status'                 => 'booked',
-        ]);
+        // 1. Cek batas pinjaman aktif (max 2)
+        $pinjamanAktif = Booking::where('user_id', $user->id)
+            ->whereIn('status', ['booked', 'active', 'late'])
+            ->count();
+
+        if ($pinjamanAktif >= 2) {
+            return back()->withErrors(['item' => 'Anda sudah memiliki 2 pinjaman aktif. Selesaikan dulu sebelum meminjam lagi.']);
+        }
+
+        // 2. Cek durasi maks 5 hari
+        $mulai   = Carbon::parse($validated['tanggal_mulai']);
+        $selesai = Carbon::parse($validated['tanggal_selesai_rencana']);
+        $durasi  = $mulai->diffInDays($selesai);
+
+        if ($durasi > 5) {
+            return back()->withErrors(['tanggal_selesai_rencana' => 'Durasi maksimal peminjaman adalah 5 hari.']);
+        }
+
+        // 3. Cek status unit / bundle
+        if (!empty($validated['unit_id'])) {
+            $unit = Unit::findOrFail($validated['unit_id']);
+            if ($unit->status !== 'tersedia') {
+                return back()->withErrors(['item' => 'Unit ini sudah tidak tersedia.']);
+            }
+        }
+
+        if (!empty($validated['bundle_id'])) {
+            $bundle = Bundle::findOrFail($validated['bundle_id']);
+            if ($bundle->status !== 'tersedia') {
+                return back()->withErrors(['item' => 'Bundle ini sudah tidak tersedia.']);
+            }
+        }
+
+        // 4. Buat booking + update status item (dalam transaction)
+        $kode = null;
+
+        DB::transaction(function () use ($validated, $user, &$kode) {
+            $kode = 'BK-' . strtoupper(uniqid());
+
+            Booking::create([
+                'kode_booking'           => $kode,
+                'user_id'                => $user->id,
+                'unit_id'                => $validated['unit_id']   ?? null,
+                'bundle_id'              => $validated['bundle_id'] ?? null,
+                'tanggal_mulai'          => $validated['tanggal_mulai'],
+                'tanggal_selesai_rencana'=> $validated['tanggal_selesai_rencana'],
+                'status'                 => 'booked',
+            ]);
+
+            // Update status item
+            if (!empty($validated['unit_id'])) {
+                Unit::where('id', $validated['unit_id'])->update(['status' => 'dipinjam']);
+            }
+            if (!empty($validated['bundle_id'])) {
+                Bundle::where('id', $validated['bundle_id'])->update(['status' => 'disewa']);
+            }
+        });
 
         return redirect()->route('bookings.mine')
             ->with('success', "Booking berhasil! Kode: {$kode}");
