@@ -244,10 +244,10 @@ const adminMenuPeminjaman = computed(() => [
 const adminMenuPengguna = computed(() => [
     {
         label: 'Anggota',
-        route: 'admin.members.index',
+        route: 'admin.users.index',
         icon: 'mdi-account-group-outline',
-        badge: null,
-        badgeColor: null,
+        badge: page.props.stats?.totalAnggota ?? null,
+        badgeColor: '#10b981',
     },
 ])
 
