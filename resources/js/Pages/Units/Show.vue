@@ -3,9 +3,7 @@ import { ref, computed } from 'vue'
 import { Head, Link, useForm } from '@inertiajs/vue3'
 
 const props = defineProps({
-    unit:          Object,
-    pinjamanAktif: Number,
-    maxPinjaman:   Number,
+    unit: Object,
 })
 
 // ─── Booking form ─────────────────────────────────────────────────────────────
@@ -41,7 +39,6 @@ const durasiError = computed(() => {
 
 const canBook = computed(() =>
     props.unit.status === 'tersedia' &&
-    props.pinjamanAktif < props.maxPinjaman &&
     durasi.value >= 1 &&
     durasi.value <= 5 &&
     !durasiError.value
@@ -159,17 +156,11 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                     </ul>
                 </div>
 
-                <!-- Quota warning -->
-                <div v-if="pinjamanAktif >= maxPinjaman" class="quota-warn">
-                    ⚠️ Anda sudah memiliki {{ pinjamanAktif }} pinjaman aktif. Selesaikan dulu sebelum meminjam lagi.
-                </div>
-
                 <!-- CTA Buttons -->
                 <div class="cta-row">
                     <button
                         v-if="unit.status === 'tersedia'"
                         class="btn-book"
-                        :disabled="pinjamanAktif >= maxPinjaman"
                         @click="openModal"
                     >
                         📅 Pinjam Unit Ini
@@ -207,10 +198,6 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                             <span class="bi-label">Kode</span>
                             <span class="bi-val code-tag">{{ unit.kode_unit }}</span>
                         </div>
-                        <div class="bi-row">
-                            <span class="bi-label">Pinjaman Aktif</span>
-                            <span class="bi-val">{{ pinjamanAktif }} / {{ maxPinjaman }}</span>
-                        </div>
                     </div>
 
                     <!-- Date fields -->
@@ -239,6 +226,10 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                             />
                             <p v-if="form.errors.tanggal_selesai_rencana" class="error-msg">{{ form.errors.tanggal_selesai_rencana }}</p>
                         </div>
+                    </div>
+
+                    <div v-if="form.errors.item" class="quota-warn mt-2">
+                        {{ form.errors.item }}
                     </div>
 
                     <!-- Durasi indicator -->
