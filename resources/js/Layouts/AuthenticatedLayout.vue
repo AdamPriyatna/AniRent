@@ -239,6 +239,13 @@ const adminMenuPeminjaman = computed(() => [
         badge: null,
         badgeColor: null,
     },
+    {
+        label: 'Laporan PDF',
+        route: 'admin.bookings.report',
+        icon: 'mdi-file-chart-outline',
+        badge: null,
+        badgeColor: null,
+    },
 ])
 
 const adminMenuPengguna = computed(() => [

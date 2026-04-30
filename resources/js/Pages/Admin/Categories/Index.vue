@@ -3,9 +3,7 @@ import { ref, reactive } from 'vue'
 import { Head, router, useForm } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 
-defineOptions({
-    layout: AuthenticatedLayout
-})
+
 const props = defineProps({
     categories: Object,
 })

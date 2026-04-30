@@ -82,6 +82,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
         Route::patch('bookings/{booking}/return', [AdminBookingController::class, 'processReturn'])->name('bookings.return');
         Route::get('bookings/history', [AdminBookingController::class, 'history'])->name('bookings.history');
+        Route::get('bookings/report', [AdminBookingController::class, 'report'])->name('bookings.report');
     });
 
 });

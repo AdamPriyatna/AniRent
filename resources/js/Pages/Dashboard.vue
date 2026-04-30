@@ -4,9 +4,7 @@ import { Head, Link } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { usePage } from '@inertiajs/vue3'
 
-defineOptions({
-    layout: AuthenticatedLayout
-})
+
 
 const props = defineProps({
     stats: {

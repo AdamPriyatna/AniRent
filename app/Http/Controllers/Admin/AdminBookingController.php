@@ -8,6 +8,7 @@ use App\Models\Fine;
 use App\Models\Unit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class AdminBookingController extends Controller
@@ -161,5 +162,45 @@ class AdminBookingController extends Controller
 
         $denda = $harga * 0.1;
         return max($denda, 5000);
+    }
+
+    /**
+     * Halaman laporan cetak PDF — menggunakan Blade biasa (bukan Inertia)
+     * sehingga bisa di-print langsung dari browser.
+     */
+    public function report(Request $request)
+    {
+        $bulan = $request->bulan ? (int) $request->bulan : null;
+        $tahun = $request->tahun ? (int) $request->tahun : now()->year;
+
+        $query = Booking::with(['user', 'unit', 'bundle', 'fine', 'processedBy'])
+            ->where('status', 'returned');
+
+        if ($bulan) {
+            $query->whereMonth('tanggal_selesai_aktual', $bulan);
+        }
+        if ($tahun) {
+            $query->whereYear('tanggal_selesai_aktual', $tahun);
+        }
+
+        $bookings = $query->latest('tanggal_selesai_aktual')->get();
+
+        // Summary stats
+        $totalDenda      = $bookings->whereNotNull('fine')->sum(fn($b) => $b->fine->jumlah_denda ?? 0);
+        $totalTerlambat  = $bookings->whereNotNull('fine')->count();
+        $totalTepatWaktu = $bookings->whereNull('fine')->count();
+
+        // Periode label
+        $bulanNames = [
+            1=>'Januari', 2=>'Februari', 3=>'Maret', 4=>'April',
+            5=>'Mei', 6=>'Juni', 7=>'Juli', 8=>'Agustus',
+            9=>'September', 10=>'Oktober', 11=>'November', 12=>'Desember'
+        ];
+        $periodeLabel = ($bulan ? $bulanNames[$bulan] . ' ' : '') . $tahun;
+
+        return view('admin.reports.bookings', compact(
+            'bookings', 'periodeLabel', 'totalDenda',
+            'totalTerlambat', 'totalTepatWaktu', 'bulan', 'tahun'
+        ));
     }
 }

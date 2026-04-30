@@ -42,6 +42,15 @@ function resetFilter() {
     doSearch()
 }
 
+// ─── PDF Report URL ───────────────────────────────────────────────────────────
+const reportUrl = computed(() => {
+    const params = new URLSearchParams()
+    if (bulan.value) params.set('bulan', bulan.value)
+    if (tahun.value) params.set('tahun', tahun.value)
+    const qs = params.toString()
+    return route('admin.bookings.report') + (qs ? '?' + qs : '')
+})
+
 // ─── Detail Modal ─────────────────────────────────────────────────────────────
 const showDetail  = ref(false)
 const detailItem  = ref(null)
@@ -91,9 +100,12 @@ function durasi(b) {
                 <h1 class="page-title">Riwayat Pengembalian</h1>
                 <p class="page-sub">Semua booking yang sudah dikembalikan</p>
             </div>
-            <Link :href="route('admin.bookings.index')" class="btn-outline">
-                ← Booking Aktif
-            </Link>
+            <div class="header-actions">
+                <a :href="reportUrl" target="_blank" class="btn-pdf">🖨️ Cetak PDF</a>
+                <Link :href="route('admin.bookings.index')" class="btn-outline">
+                    ← Booking Aktif
+                </Link>
+            </div>
         </div>
 
         <!-- Flash -->
@@ -406,6 +418,18 @@ function durasi(b) {
     border: none; cursor: pointer; white-space: nowrap;
 }
 .btn-primary:hover { background: #3C3489; }
+
+.header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.btn-pdf {
+    padding: 8px 16px; border-radius: 8px;
+    background: #1a1a2e; color: #fff;
+    font-size: 0.8125rem; font-weight: 500;
+    text-decoration: none; cursor: pointer; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+    transition: background 0.15s;
+}
+.btn-pdf:hover { background: #0d0d1a; }
 
 .btn-outline {
     padding: 8px 16px; border-radius: 8px;
