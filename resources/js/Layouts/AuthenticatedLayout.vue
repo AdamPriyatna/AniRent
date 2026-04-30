@@ -234,7 +234,7 @@ const adminMenuPeminjaman = computed(() => [
     },
     {
         label: 'Riwayat',
-        route: 'admin.history.index',
+        route: 'admin.bookings.history',
         icon: 'mdi-history',
         badge: null,
         badgeColor: null,
