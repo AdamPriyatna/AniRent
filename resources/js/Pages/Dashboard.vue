@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { Head, Link } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
+import { usePage } from '@inertiajs/vue3'
 
 const props = defineProps({
     stats: {
@@ -26,7 +27,12 @@ const props = defineProps({
     user: Object,
 })
 
-const isAdmin = computed(() => props.user?.role === 'admin')
+
+const page = usePage()
+
+const user = computed(() => page.props.auth.user)
+
+const isAdmin = computed(() => page.props.auth.user?.role === 'admin')
 
 const statusClass = (status) => {
     const map = {
