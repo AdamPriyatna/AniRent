@@ -14,6 +14,7 @@ const form = useForm({
     nama_unit: props.unit.nama_unit,
     deskripsi: props.unit.deskripsi ?? '',
     kondisi: props.unit.kondisi ?? '',
+    harga_sewa: props.unit.harga_sewa ?? 0,
     status: props.unit.status,
     foto: null,
     categories: props.unit.categories?.map(c => c.id) ?? [],
@@ -107,6 +108,19 @@ function submit() {
                             placeholder="Contoh: Baik, Baru, Bekas"
                             maxlength="100"
                         />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label">Harga Sewa / Hari (Rp) <span class="required">*</span></label>
+                        <input
+                            v-model="form.harga_sewa"
+                            type="number"
+                            class="input"
+                            :class="{ 'input-error': form.errors.harga_sewa }"
+                            placeholder="Contoh: 25000"
+                            min="0"
+                        />
+                        <p v-if="form.errors.harga_sewa" class="error-msg">{{ form.errors.harga_sewa }}</p>
                     </div>
 
                     <div class="form-group">

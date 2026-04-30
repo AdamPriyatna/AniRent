@@ -156,8 +156,7 @@ class AdminBookingController extends Controller
         if ($booking->bundle) {
             $harga = $booking->bundle->harga_per_hari ?? 0;
         } elseif ($booking->unit) {
-            // Unit tidak punya harga_per_hari, pakai flat Rp 10.000
-            $harga = 100000;
+            $harga = $booking->unit->harga_sewa ?? 0;
         }
 
         $denda = $harga * 0.1;

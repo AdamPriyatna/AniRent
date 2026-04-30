@@ -13,6 +13,7 @@ const form = useForm({
     nama_unit: '',
     deskripsi: '',
     kondisi: '',
+    harga_sewa: 0,
     status: 'tersedia',
     foto: null,
     categories: [],
@@ -101,6 +102,20 @@ function submit() {
                             maxlength="100"
                         />
                         <p v-if="form.errors.kondisi" class="error-msg">{{ form.errors.kondisi }}</p>
+                    </div>
+
+                    <!-- Harga Sewa -->
+                    <div class="form-group">
+                        <label class="label">Harga Sewa / Hari (Rp) <span class="required">*</span></label>
+                        <input
+                            v-model="form.harga_sewa"
+                            type="number"
+                            class="input"
+                            :class="{ 'input-error': form.errors.harga_sewa }"
+                            placeholder="Contoh: 25000"
+                            min="0"
+                        />
+                        <p v-if="form.errors.harga_sewa" class="error-msg">{{ form.errors.harga_sewa }}</p>
                     </div>
 
                     <!-- Status -->

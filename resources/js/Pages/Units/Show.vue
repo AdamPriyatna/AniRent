@@ -132,10 +132,16 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                     >{{ c.nama_kategori }}</span>
                 </div>
 
-                <!-- Kondisi -->
-                <div v-if="unit.kondisi" class="kondisi-row">
-                    <span class="kondisi-label">Kondisi:</span>
-                    <span class="kondisi-val">{{ unit.kondisi }}</span>
+                <!-- Kondisi & Harga -->
+                <div class="info-grid mb-4">
+                    <div v-if="unit.kondisi" class="kondisi-row">
+                        <span class="kondisi-label">Kondisi:</span>
+                        <span class="kondisi-val">{{ unit.kondisi }}</span>
+                    </div>
+                    <div class="kondisi-row mt-2">
+                        <span class="kondisi-label">Harga Sewa:</span>
+                        <span class="kondisi-val font-weight-bold text-primary">Rp {{ unit.harga_sewa ? unit.harga_sewa.toLocaleString('id-ID') : 0 }} / hari</span>
+                    </div>
                 </div>
 
                 <!-- Deskripsi -->
@@ -198,6 +204,10 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                             <span class="bi-label">Kode</span>
                             <span class="bi-val code-tag">{{ unit.kode_unit }}</span>
                         </div>
+                        <div class="bi-row mt-1">
+                            <span class="bi-label">Harga/Hari</span>
+                            <span class="bi-val text-primary font-weight-bold">Rp {{ unit.harga_sewa ? unit.harga_sewa.toLocaleString('id-ID') : 0 }}</span>
+                        </div>
                     </div>
 
                     <!-- Date fields -->
@@ -250,6 +260,11 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                         <div class="cb-row">
                             <span>Durasi</span>
                             <strong>{{ durasi }} hari</strong>
+                        </div>
+                        <div class="cb-divider"></div>
+                        <div class="cb-row cb-total">
+                            <span>Total Biaya</span>
+                            <strong class="text-primary">Rp {{ (durasi * (unit.harga_sewa || 0)).toLocaleString('id-ID') }}</strong>
                         </div>
                     </div>
 
@@ -457,6 +472,8 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
     display: flex; justify-content: space-between;
     font-size: 0.8125rem; padding: 4px 0; color: #555;
 }
+.cb-divider { height: 1px; background: #e0ddd5; margin: 8px 0; }
+.cb-total { font-size: 0.875rem; color: #1a1a2e; }
 
 .modal-footer {
     display: flex; justify-content: flex-end; gap: 10px;

@@ -200,6 +200,11 @@ const statusIcon = (status) => {
                                 {{ unit.nama_unit }}
                             </h3>
 
+                            <!-- Harga Sewa -->
+                            <div class="mb-2 text-primary font-weight-bold">
+                                Rp {{ unit.harga_sewa ? unit.harga_sewa.toLocaleString('id-ID') : 0 }} / hari
+                            </div>
+
                             <!-- Deskripsi -->
                             <p v-if="unit.deskripsi" class="text-caption text-grey mb-3" style="line-height: 1.5; min-height: 36px">
                                 {{ unit.deskripsi?.substring(0, 70) }}{{ unit.deskripsi?.length > 70 ? '...' : '' }}

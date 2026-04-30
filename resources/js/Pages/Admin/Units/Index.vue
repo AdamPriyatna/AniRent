@@ -95,6 +95,7 @@ const statusLabel = (status) => {
                             <th>Kode Unit</th>
                             <th>Nama Unit</th>
                             <th>Kategori</th>
+                            <th>Harga Sewa</th>
                             <th>Kondisi</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -119,6 +120,7 @@ const statusLabel = (status) => {
                                     </span>
                                 </div>
                             </td>
+                            <td class="unit-price">Rp {{ unit.harga_sewa.toLocaleString('id-ID') }}</td>
                             <td class="text-muted">{{ unit.kondisi ?? '-' }}</td>
                             <td>
                                 <span :class="['pill', statusClass(unit.status)]">
@@ -209,6 +211,7 @@ const statusLabel = (status) => {
 }
 .unit-name { font-weight: 500; color: #1a1a2e; }
 .unit-desc { font-size: 0.75rem; color: #aaa; margin-top: 2px; }
+.unit-price { font-weight: 500; color: #534AB7; }
 .text-muted { color: #888; }
 
 .tags { display: flex; gap: 4px; flex-wrap: wrap; }

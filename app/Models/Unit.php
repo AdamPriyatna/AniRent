@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Unit extends Model
 {
-    protected $fillable = ['kode_unit', 'nama_unit', 'deskripsi', 'kondisi', 'status', 'foto'];
+    protected $fillable = ['kode_unit', 'nama_unit', 'deskripsi', 'kondisi', 'harga_sewa', 'status', 'foto'];
 
     public function categories(): BelongsToMany
     {

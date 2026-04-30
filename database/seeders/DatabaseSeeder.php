@@ -19,9 +19,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            CategorySeeder::class,
-            UnitSeeder::class,
-            BundleSeeder::class,
+            AniRentSeeder::class,
+            // CategorySeeder::class,
+            // UnitSeeder::class,
+            // BundleSeeder::class,
         ]);
     }
 }

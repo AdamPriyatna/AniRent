@@ -10,16 +10,21 @@ class BundleController extends Controller
 {
     public function index(Request $request)
     {
-        $bundles = Bundle::latest()->paginate(10);
+        $bundles = Bundle::with(['units'])
+            ->where('status', 'tersedia')
+            ->latest()
+            ->paginate(12);
 
-        return Inertia::render('Admin/Bundles/Index', [
+        return Inertia::render('Bundles/Index', [
             'bundles' => $bundles,
         ]);
     }
 
     public function show(Bundle $bundle)
     {
-        return Inertia::render('Admin/Bundles/Show', [
+        $bundle->load('units');
+
+        return Inertia::render('Bundles/Show', [
             'bundle' => $bundle,
         ]);
     }
