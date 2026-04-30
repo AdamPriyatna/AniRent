@@ -25,10 +25,10 @@
 
 | No | Nama | NIM/NIP | Role |
 |----|------|---------|------|
-| 1  | [Nama Anggota 1] | [NIM] | Project Manager / Full Stack |
-| 2  | [Nama Anggota 2] | [NIM] | Backend Developer |
-| 3  | [Nama Anggota 3] | [NIM] | Frontend Developer |
-| 4  | [Nama Anggota 4] | [NIM] | Database Designer |
+| 1  | [Adam Priyatna] | [102042300188] | Project Manager / Full Stack |
+| 2  | [Adam Priyatna] | [102042300188] | Backend Developer |
+| 3  | [Adam Priyatna] | [102042300188] | Frontend Developer |
+| 4  | [Adam Priyatna] | [102042300188] | Database Designer |
 
 ---
 
