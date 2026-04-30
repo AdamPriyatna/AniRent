@@ -122,7 +122,13 @@
                             :color="avatarColor"
                             style="flex-shrink: 0;"
                         >
-                            <span style="font-size: 13px; font-weight: 700; color: white;">{{ userInitials }}</span>
+                            <v-img
+                                v-if="$page.props.auth.user.foto"
+                                :src="`/storage/${$page.props.auth.user.foto}`"
+                                alt="avatar"
+                                cover
+                            />
+                            <span v-else style="font-size: 13px; font-weight: 700; color: white;">{{ userInitials }}</span>
                         </v-avatar>
                         <div style="min-width: 0;">
                             <div style="color: white; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
@@ -165,11 +171,12 @@
 </template>
 
 <script setup>
-import { computed, defineComponent, h } from 'vue'
+import { ref, computed, defineComponent, h } from 'vue'
 import { Link, usePage } from '@inertiajs/vue3'
 import { VListItem, VBadge, VIcon } from 'vuetify/components'
 
 const page = usePage()
+const drawer = ref(true)
 
 const isAdmin = computed(() => page.props.auth.user.role === 'admin')
 

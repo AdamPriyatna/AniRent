@@ -9,14 +9,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('units', function (Blueprint $table) {
-            $table->integer('harga_sewa')->default(0)->after('kondisi');
+            $table->integer('harga_per_hari')->default(0)->after('kondisi');
         });
     }
 
     public function down(): void
     {
         Schema::table('units', function (Blueprint $table) {
-            $table->dropColumn('harga_sewa');
+            $table->dropColumn('harga_per_hari');
         });
     }
 };

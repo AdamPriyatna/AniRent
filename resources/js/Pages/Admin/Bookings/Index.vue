@@ -52,6 +52,11 @@ function doReturn() {
     })
 }
 
+function doPickup(booking) {
+    if (!confirm(`Konfirmasi pengambilan item untuk booking ${booking.kode_booking}?`)) return
+    router.patch(route('admin.bookings.pickup', booking.id))
+}
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 function formatDate(d) {
     if (!d) return '—'
@@ -222,6 +227,14 @@ const returnBooking = computed(() => bookingToReturn.value)
                         <!-- Aksi -->
                         <td>
                             <button
+                                v-if="b.status === 'booked'"
+                                class="btn-pickup"
+                                @click="doPickup(b)"
+                            >
+                                Serahkan Item
+                            </button>
+                            <button
+                                v-else
                                 class="btn-return"
                                 @click="openReturn(b)"
                             >
@@ -435,6 +448,15 @@ const returnBooking = computed(() => bookingToReturn.value)
     transition: background 0.15s;
 }
 .btn-return:hover { background: #3C3489; }
+
+.btn-pickup {
+    padding: 6px 14px; border-radius: 7px;
+    background: #EEEDFE; color: #534AB7;
+    font-size: 0.75rem; font-weight: 600;
+    border: 1.5px solid #534AB7; cursor: pointer; white-space: nowrap;
+    transition: all 0.2s;
+}
+.btn-pickup:hover { background: #534AB7; color: white; }
 
 .btn-primary {
     padding: 8px 16px; border-radius: 8px;

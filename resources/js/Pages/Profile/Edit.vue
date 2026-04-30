@@ -44,6 +44,7 @@ const detailForm = useForm({
     alamat:     props.profile?.alamat     ?? '',
     foto:       null,
     hapus_foto: '0',
+    _method:    'PATCH',
 })
 
 function onFotoChange(e) {
@@ -63,7 +64,13 @@ function removeFoto() {
 }
 
 function submitDetail() {
-    detailForm.patch(route('profile.detail'), { forceFormData: true })
+    detailForm.post(route('profile.detail'), { 
+        forceFormData: true,
+        onSuccess: () => {
+            fotoPreview.value = null
+            existingFoto.value = props.profile?.foto
+        }
+    })
 }
 
 // ─── Form 3: Ganti Password ───────────────────────────────────────────────────

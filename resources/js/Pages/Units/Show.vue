@@ -140,7 +140,7 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                     </div>
                     <div class="kondisi-row mt-2">
                         <span class="kondisi-label">Harga Sewa:</span>
-                        <span class="kondisi-val font-weight-bold text-primary">Rp {{ unit.harga_sewa ? unit.harga_sewa.toLocaleString('id-ID') : 0 }} / hari</span>
+                        <span class="kondisi-val font-weight-bold text-primary">Rp {{ (unit.harga_sewa ?? 0).toLocaleString('id-ID') }} / hari</span>
                     </div>
                 </div>
 
@@ -206,7 +206,7 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                         </div>
                         <div class="bi-row mt-1">
                             <span class="bi-label">Harga/Hari</span>
-                            <span class="bi-val text-primary font-weight-bold">Rp {{ unit.harga_sewa ? unit.harga_sewa.toLocaleString('id-ID') : 0 }}</span>
+                            <span class="bi-val text-primary font-weight-bold">Rp {{ (unit.harga_sewa ?? 0).toLocaleString('id-ID') }}</span>
                         </div>
                     </div>
 
@@ -264,7 +264,7 @@ function si(s) { return statusMap[s] ?? { label: s, bg: '#F1EFE8', color: '#888'
                         <div class="cb-divider"></div>
                         <div class="cb-row cb-total">
                             <span>Total Biaya</span>
-                            <strong class="text-primary">Rp {{ (durasi * (unit.harga_sewa || 0)).toLocaleString('id-ID') }}</strong>
+                            <strong class="text-primary">Rp {{ (durasi * (unit.harga_per_hari || 0)).toLocaleString('id-ID') }}</strong>
                         </div>
                     </div>
 

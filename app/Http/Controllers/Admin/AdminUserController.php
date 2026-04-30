@@ -16,7 +16,7 @@ class AdminUserController extends Controller
      */
     public function index(Request $request)
     {
-        $query = User::query();
+        $query = User::with('profile');
 
         if ($request->search) {
             $query->where(function ($q) use ($request) {

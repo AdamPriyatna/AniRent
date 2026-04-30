@@ -120,7 +120,7 @@ const statusLabel = (status) => {
                                     </span>
                                 </div>
                             </td>
-                            <td class="unit-price">Rp {{ unit.harga_sewa.toLocaleString('id-ID') }}</td>
+                            <td class="unit-price">Rp {{ (unit.harga_sewa ?? 0).toLocaleString('id-ID') }}</td>
                             <td class="text-muted">{{ unit.kondisi ?? '-' }}</td>
                             <td>
                                 <span :class="['pill', statusClass(unit.status)]">
@@ -207,7 +207,7 @@ const statusLabel = (status) => {
     background: #EEEDFE; color: #534AB7;
     font-size: 0.75rem; font-weight: 600;
     padding: 3px 8px; border-radius: 6px;
-    font-family: monospace;
+    font-family: monospace; white-space: nowrap;
 }
 .unit-name { font-weight: 500; color: #1a1a2e; }
 .unit-desc { font-size: 0.75rem; color: #aaa; margin-top: 2px; }

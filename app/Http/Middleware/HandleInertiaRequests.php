@@ -24,6 +24,7 @@ class HandleInertiaRequests extends Middleware
                         'name'  => $request->user()->name,
                         'email' => $request->user()->email,
                         'role'  => $request->user()->role,
+                        'foto'  => $request->user()->profile?->foto,
                     ]
                     : null,
             ],

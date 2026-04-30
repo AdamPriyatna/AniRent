@@ -46,6 +46,7 @@ class AdminUnitController extends Controller
             'nama_unit'    => 'required|string|max:255',
             'deskripsi'    => 'nullable|string',
             'kondisi'      => 'nullable|string|max:100',
+            'harga_sewa'   => 'required|numeric|min:0',
             'status'       => 'required|in:tersedia,dipinjam,rusak',
             'foto'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'categories'   => 'required|array|min:1',
@@ -122,13 +123,11 @@ class AdminUnitController extends Controller
 
         // Handle foto
         if ($request->hasFile('foto')) {
-            // Hapus foto lama
             if ($unit->foto) {
                 Storage::disk('public')->delete($unit->foto);
             }
             $validated['foto'] = $request->file('foto')->store('units', 'public');
-        } elseif (!$request->has('foto') && $unit->foto) {
-            // User hapus foto tanpa upload baru
+        } elseif ($request->input('hapus_foto') == '1' && $unit->foto) {
             Storage::disk('public')->delete($unit->foto);
             $validated['foto'] = null;
         } else {

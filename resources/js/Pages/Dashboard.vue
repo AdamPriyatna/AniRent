@@ -16,6 +16,8 @@ const props = defineProps({
             totalAnggota: 0,
             totalBundle: 0,
             totalBookingHariIni: 0,
+            bookingMenunggu: 0,
+            bookingAktif: 0,
         })
     },
     bookingTerbaru: {
@@ -105,25 +107,25 @@ const initials = (name) => name?.split(' ').map(w => w[0]).join('').substring(0,
 
             <!-- Stats grid (Admin) -->
             <div v-if="isAdmin" class="stats-grid">
-                <div class="stat-card stat-purple">
-                    <p class="stat-label">Total Unit</p>
-                    <p class="stat-value">{{ stats.totalUnit }}</p>
-                    <span class="stat-badge badge-purple">{{ stats.totalBundle }} bundle</span>
+                <div class="stat-card stat-blue">
+                    <p class="stat-label">Menunggu Pengambilan</p>
+                    <p class="stat-value">{{ stats.bookingMenunggu }}</p>
+                    <span class="stat-badge badge-blue">perlu diserahkan</span>
                 </div>
                 <div class="stat-card stat-teal">
                     <p class="stat-label">Sedang Dipinjam</p>
-                    <p class="stat-value">{{ stats.unitDipinjam }}</p>
-                    <span class="stat-badge badge-teal">aktif</span>
+                    <p class="stat-value">{{ stats.bookingAktif }}</p>
+                    <span class="stat-badge badge-teal">aktif di user</span>
                 </div>
                 <div class="stat-card stat-coral">
                     <p class="stat-label">Terlambat</p>
                     <p class="stat-value">{{ stats.unitTerlambat }}</p>
                     <span class="stat-badge badge-coral">perlu aksi</span>
                 </div>
-                <div class="stat-card stat-amber">
-                    <p class="stat-label">Total Anggota</p>
-                    <p class="stat-value">{{ stats.totalAnggota }}</p>
-                    <span class="stat-badge badge-amber">terdaftar</span>
+                <div class="stat-card stat-purple">
+                    <p class="stat-label">Total Unit</p>
+                    <p class="stat-value">{{ stats.totalUnit }}</p>
+                    <span class="stat-badge badge-purple">{{ stats.totalBundle }} bundle</span>
                 </div>
             </div>
 
@@ -322,12 +324,14 @@ const initials = (name) => name?.split(' ').map(w => w[0]).join('').substring(0,
 .stat-coral  { background: #FAECE7; color: #712B13; }
 .stat-amber  { background: #FAEEDA; color: #633806; }
 .stat-pink   { background: #FBEAF0; color: #72243E; }
+.stat-blue   { background: #EFF6FF; color: #1D4ED8; }
 
 .badge-purple { background: #CECBF6; color: #3C3489; }
 .badge-teal   { background: #9FE1CB; color: #085041; }
 .badge-coral  { background: #F5C4B3; color: #712B13; }
 .badge-amber  { background: #FAC775; color: #633806; }
 .badge-pink   { background: #F4C0D1; color: #72243E; }
+.badge-blue   { background: #BFDBFE; color: #1D4ED8; }
 
 /* Two col layout */
 .two-col {

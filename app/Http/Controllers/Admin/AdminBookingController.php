@@ -60,13 +60,29 @@ class AdminBookingController extends Controller
     }
 
     /**
+     * Konfirmasi pengambilan unit oleh user (Booked -> Active).
+     */
+    public function confirmPickup(Booking $booking)
+    {
+        if ($booking->status !== 'booked') {
+            return back()->with('error', 'Hanya booking dengan status Menunggu yang bisa diambil.');
+        }
+
+        $booking->update([
+            'status' => 'active',
+        ]);
+
+        return back()->with('success', "Item telah diambil. Status sekarang: Sedang Dipinjam.");
+    }
+
+    /**
      * Proses pengembalian unit/bundle + hitung denda jika terlambat.
      */
     public function processReturn(Request $request, Booking $booking)
     {
-        if (!in_array($booking->status, ['booked', 'active', 'late'])) {
+        if (!in_array($booking->status, ['active', 'late'])) {
             return redirect()->route('admin.bookings.index')
-                ->with('error', 'Booking ini sudah dikembalikan atau tidak valid.');
+                ->with('error', 'Hanya booking yang Sedang Dipinjam yang bisa dikembalikan.');
         }
 
         $tanggalKembali = Carbon::today();
@@ -156,7 +172,7 @@ class AdminBookingController extends Controller
         if ($booking->bundle) {
             $harga = $booking->bundle->harga_per_hari ?? 0;
         } elseif ($booking->unit) {
-            $harga = $booking->unit->harga_sewa ?? 0;
+            $harga = $booking->unit->harga_per_hari ?? 0;
         }
 
         $denda = $harga * 0.1;

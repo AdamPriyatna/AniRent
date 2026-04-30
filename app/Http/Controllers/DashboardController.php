@@ -31,6 +31,8 @@ class DashboardController extends Controller
             'totalAnggota'       => User::where('role', 'anggota')->count(),
             'totalBundle'        => Bundle::count(),
             'totalBookingHariIni'=> Booking::whereDate('created_at', today())->count(),
+            'bookingMenunggu'    => Booking::where('status', 'booked')->count(),
+            'bookingAktif'       => Booking::where('status', 'active')->count(),
         ];
 
         $bookingTerbaru = Booking::with(['user', 'unit', 'bundle'])

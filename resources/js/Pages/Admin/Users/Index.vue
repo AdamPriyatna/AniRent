@@ -215,10 +215,10 @@ function avatarColor(name) {
                         <td class="text-muted">{{ users.from + i }}</td>
                         <td>
                             <div class="user-cell">
-                                <div
-                                    class="avatar"
-                                    :style="{ background: avatarColor(user.name) }"
-                                >{{ avatarInitials(user.name) }}</div>
+                                <img v-if="user.profile?.foto" :src="`/storage/${user.profile.foto}`" class="avatar" style="object-fit: cover;" />
+                                <div v-else class="avatar" :style="{ background: avatarColor(user.name) }">
+                                    {{ avatarInitials(user.name) }}
+                                </div>
                                 <span class="user-name">{{ user.name }}</span>
                             </div>
                         </td>

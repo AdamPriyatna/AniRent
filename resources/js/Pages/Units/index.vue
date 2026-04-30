@@ -202,7 +202,7 @@ const statusIcon = (status) => {
 
                             <!-- Harga Sewa -->
                             <div class="mb-2 text-primary font-weight-bold">
-                                Rp {{ unit.harga_sewa ? unit.harga_sewa.toLocaleString('id-ID') : 0 }} / hari
+                                Rp {{ (unit.harga_sewa ?? 0).toLocaleString('id-ID') }} / hari
                             </div>
 
                             <!-- Deskripsi -->

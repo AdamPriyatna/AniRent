@@ -94,7 +94,7 @@ class AniRentSeeder extends Seeder
                 'nama_unit'  => $data['nama'],
                 'deskripsi'  => 'Ini adalah deskripsi untuk ' . $data['nama'] . '. Barang disewakan dalam kondisi ' . strtolower($data['kondisi']) . '.',
                 'kondisi'    => $data['kondisi'],
-                'harga_sewa' => $data['harga'],
+                'harga_per_hari' => $data['harga'],
                 'status'     => 'tersedia',
             ]);
             // Attach ke kategori

@@ -104,20 +104,6 @@ function submit() {
                         <p v-if="form.errors.kondisi" class="error-msg">{{ form.errors.kondisi }}</p>
                     </div>
 
-                    <!-- Harga Sewa -->
-                    <div class="form-group">
-                        <label class="label">Harga Sewa / Hari (Rp) <span class="required">*</span></label>
-                        <input
-                            v-model="form.harga_sewa"
-                            type="number"
-                            class="input"
-                            :class="{ 'input-error': form.errors.harga_sewa }"
-                            placeholder="Contoh: 25000"
-                            min="0"
-                        />
-                        <p v-if="form.errors.harga_sewa" class="error-msg">{{ form.errors.harga_sewa }}</p>
-                    </div>
-
                     <!-- Status -->
                     <div class="form-group">
                         <label class="label">Status <span class="required">*</span></label>
@@ -128,6 +114,22 @@ function submit() {
                         </select>
                         <p v-if="form.errors.status" class="error-msg">{{ form.errors.status }}</p>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="label">Harga Sewa / Hari (Rp) <span class="required">*</span></label>
+                    <div class="input-prefix-wrap">
+                        <span class="input-prefix">Rp</span>
+                        <input
+                            v-model="form.harga_sewa"
+                            type="number"
+                            min="0"
+                            class="input input-with-prefix"
+                            :class="{ 'input-error': form.errors.harga_sewa }"
+                            placeholder="50000"
+                        />
+                    </div>
+                    <p v-if="form.errors.harga_sewa" class="error-msg">{{ form.errors.harga_sewa }}</p>
                 </div>
 
                 <!-- Deskripsi -->
@@ -224,6 +226,19 @@ function submit() {
 }
 .input:focus { border-color: #534AB7; }
 .input-error { border-color: #D85A30 !important; }
+.input-prefix-wrap {
+    display: flex; align-items: center;
+    border: 0.5px solid #d0ccc4; border-radius: 8px;
+    overflow: hidden; transition: border-color 0.15s;
+}
+.input-prefix-wrap:focus-within { border-color: #534AB7; }
+.input-prefix {
+    background: #F1EFE8; padding: 9px 12px;
+    border-right: 0.5px solid #d0ccc4;
+    color: #5F5E5A; font-size: 0.875rem; font-weight: 600;
+}
+.input-with-prefix { border: none !important; border-radius: 0 !important; }
+
 .textarea { resize: vertical; min-height: 80px; }
 .error-msg { font-size: 0.75rem; color: #D85A30; margin-top: 4px; }
 
