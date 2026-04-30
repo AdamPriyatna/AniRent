@@ -3,6 +3,9 @@ import { ref, reactive } from 'vue'
 import { Head, router, useForm } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 
+defineOptions({
+    layout: AuthenticatedLayout
+})
 const props = defineProps({
     categories: Object,
 })
@@ -61,7 +64,7 @@ function hapus(id) {
 
 <template>
     <Head title="Manajemen Kategori" />
-    <AuthenticatedLayout>
+
         <div class="page">
 
             <!-- Header -->
@@ -186,7 +189,7 @@ function hapus(id) {
             </div>
         </Teleport>
 
-    </AuthenticatedLayout>
+
 </template>
 
 <style scoped>

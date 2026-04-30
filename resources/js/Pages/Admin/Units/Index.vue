@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import { Head, Link, router } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 
+defineOptions({
+    layout: AuthenticatedLayout
+})
 const props = defineProps({
     units: Object,
     filters: Object,
@@ -48,7 +51,7 @@ const statusLabel = (status) => {
 
 <template>
     <Head title="Manajemen Unit" />
-    <AuthenticatedLayout>
+
         <div class="page">
 
             <!-- Header -->
@@ -148,7 +151,7 @@ const statusLabel = (status) => {
             </div>
 
         </div>
-    </AuthenticatedLayout>
+
 </template>
 
 <style scoped>

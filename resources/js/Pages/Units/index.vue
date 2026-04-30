@@ -3,6 +3,9 @@ import { ref, computed } from 'vue'
 import { Head, Link, router } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 
+defineOptions({
+    layout: AuthenticatedLayout
+})
 const props = defineProps({
     units: Object,
     filters: Object,
@@ -47,7 +50,7 @@ const statusIcon = (status) => {
 
 <template>
     <Head title="Katalog Unit" />
-    <AuthenticatedLayout>
+
         <v-container fluid class="pa-6" style="max-width: 1280px">
 
             <!-- Hero Header -->
@@ -285,7 +288,7 @@ const statusIcon = (status) => {
             </v-row>
 
         </v-container>
-    </AuthenticatedLayout>
+
 </template>
 
 <style scoped>

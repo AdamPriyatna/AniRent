@@ -4,6 +4,10 @@ import { Head, Link } from '@inertiajs/vue3'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import { usePage } from '@inertiajs/vue3'
 
+defineOptions({
+    layout: AuthenticatedLayout
+})
+
 const props = defineProps({
     stats: {
         type: Object,
@@ -61,9 +65,8 @@ const initials = (name) => name?.split(' ').map(w => w[0]).join('').substring(0,
 
 <template>
     <Head title="Dashboard" />
-    <AuthenticatedLayout>
-        <div class="dashboard">
 
+        <div class="dashboard">
             <!-- Header -->
             <div class="dash-header">
                 <div>
@@ -236,7 +239,6 @@ const initials = (name) => name?.split(' ').map(w => w[0]).join('').substring(0,
             </div>
 
         </div>
-    </AuthenticatedLayout>
 </template>
 
 <style scoped>
