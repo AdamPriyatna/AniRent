@@ -278,18 +278,11 @@ const memberMenuUtama = computed(() => [
 
 const memberMenuPinjaman = computed(() => [
     {
-        label: 'Pinjaman Aktif',
-        route: 'member.bookings.active',
+        label: 'Pinjaman Saya',
+        route: 'bookings.mine',
         icon: 'mdi-calendar-check-outline',
         badge: page.props.stats?.pinjamanAktif ?? null,
         badgeColor: '#f59e0b',
-    },
-    {
-        label: 'Riwayat',
-        route: 'member.history.index',
-        icon: 'mdi-history',
-        badge: null,
-        badgeColor: null,
     },
 ])
 
