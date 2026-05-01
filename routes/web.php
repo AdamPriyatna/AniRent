@@ -25,9 +25,19 @@ use Illuminate\Support\Facades\Auth;
 |--------------------------------------------------------------------------
 */
 Route::get('/', function () {
-    return Auth::check()
-        ? redirect()->route('dashboard')
-        : redirect()->route('login');
+    $featuredUnits = \App\Models\Unit::with('categories')
+        ->where('status', 'tersedia')
+        ->inRandomOrder()
+        ->limit(3)
+        ->get();
+
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+        'featuredUnits' => $featuredUnits,
+    ]);
 });
 
 /*

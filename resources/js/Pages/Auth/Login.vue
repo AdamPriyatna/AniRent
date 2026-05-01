@@ -31,9 +31,15 @@ function submit() {
                 <div class="deco deco-2"></div>
 
                 <div class="brand">
-                    <div class="brand-badge">
-                        <div class="brand-icon">A</div>
-                        <span class="brand-name">AniRent</span>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1.75rem;">
+                        <!-- Icon Container -->
+                        <div style="width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(to bottom right, #c084fc, #ec4899); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(168,85,247,0.6); flex-shrink: 0;">
+                            <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <!-- Text -->
+                        <span style="font-size: 24px; font-weight: 800; letter-spacing: 0.05em; background: linear-gradient(to right, #d8b4fe, #fbcfe8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Inter', sans-serif;">AniRent</span>
                     </div>
                     <h1 class="tagline">
                         Sewa peralatan <span class="tagline-accent">anime & kreator</span> favoritmu
@@ -142,15 +148,27 @@ function submit() {
 </template>
 
 <style scoped>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
 
 .auth-page {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0f0f1a;
+    background-image: url('/images/anime_bg.png');
+    background-size: cover;
+    background-position: center;
+    position: relative;
     padding: 1.5rem;
+}
+
+.auth-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(26, 16, 60, 0.8), rgba(45, 27, 84, 0.7), rgba(26, 16, 60, 0.95));
+    backdrop-filter: blur(2px);
+    z-index: 0;
 }
 
 .auth-wrap {
@@ -161,23 +179,30 @@ function submit() {
     min-height: 560px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 40px 0 rgba(168, 85, 247, 0.2);
 }
 
 @media (max-width: 680px) {
     .auth-wrap { grid-template-columns: 1fr; }
-    .auth-left { display: none; }
+    .auth-left { display: none !important; }
 }
 
 /* Left */
 .auth-left {
-    background: #1a1a2e;
     padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     overflow: hidden;
+    background: rgba(26, 16, 60, 0.3);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .deco {
@@ -187,13 +212,15 @@ function submit() {
 }
 .deco-1 {
     width: 300px; height: 300px;
-    background: #534AB7;
+    background: #a855f7;
     top: -80px; right: -80px;
+    filter: blur(40px);
 }
 .deco-2 {
     width: 180px; height: 180px;
-    background: #993556;
+    background: #ec4899;
     bottom: 40px; left: -60px;
+    filter: blur(30px);
 }
 
 .brand { position: relative; z-index: 1; }
@@ -206,20 +233,24 @@ function submit() {
 }
 .brand-icon {
     width: 28px; height: 28px; border-radius: 8px;
-    background: #534AB7; color: #fff;
+    background: linear-gradient(135deg, #a855f7, #ec4899); color: #fff;
     display: flex; align-items: center; justify-content: center;
     font-size: 14px; font-weight: 500;
 }
-.brand-name { font-size: 14px; font-weight: 500; color: #fff; opacity: 0.9; }
+.brand-name { font-size: 14px; font-weight: 500; color: #fff; opacity: 0.9; letter-spacing: 1px;}
 
 .tagline {
-    font-size: 24px; font-weight: 500;
+    font-size: 24px; font-weight: 700;
     color: #fff; line-height: 1.35;
     margin-bottom: 1rem;
 }
-.tagline-accent { color: #7F77DD; }
+.tagline-accent { 
+    background: linear-gradient(to right, #fbcfe8, #d8b4fe);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .tagline-desc {
-    font-size: 13px; color: rgba(255,255,255,0.45);
+    font-size: 13px; color: rgba(255,255,255,0.7);
     line-height: 1.65;
 }
 
@@ -229,44 +260,45 @@ function submit() {
 }
 .feature-item {
     display: flex; align-items: center; gap: 10px;
-    font-size: 13px; color: rgba(255,255,255,0.55);
+    font-size: 13px; color: rgba(255,255,255,0.8);
 }
 .feature-dot {
     width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+    box-shadow: 0 0 8px currentColor;
 }
 
 /* Right */
 .auth-right {
-    background: #fff;
     display: flex; align-items: center; justify-content: center;
     padding: 2.5rem 2rem;
 }
 .form-wrap { width: 100%; max-width: 360px; }
 
 .status-msg {
-    background: #E1F5EE; border: 0.5px solid #5DCAA5;
+    background: rgba(34, 197, 94, 0.2); border: 1px solid rgba(34, 197, 94, 0.5);
     border-radius: 8px; padding: 10px 14px;
-    font-size: 13px; color: #085041; margin-bottom: 1.25rem;
+    font-size: 13px; color: #86efac; margin-bottom: 1.25rem;
 }
 
-.form-title { font-size: 22px; font-weight: 500; color: #1a1a2e; margin-bottom: 4px; }
-.form-sub { font-size: 14px; color: #888; margin-bottom: 1.75rem; }
+.form-title { font-size: 22px; font-weight: 600; color: #fff; margin-bottom: 4px; }
+.form-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 1.75rem; }
 
 .form-group { margin-bottom: 1.1rem; }
 .label {
     display: block; font-size: 11px; font-weight: 500;
-    color: #888; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); text-transform: uppercase;
     letter-spacing: 0.05em; margin-bottom: 6px;
 }
 .input {
     width: 100%; padding: 11px 14px;
-    border: 0.5px solid #d0ccc4; border-radius: 10px;
-    font-size: 14px; color: #1a1a2e; outline: none;
-    background: #F8F7F4; transition: all 0.15s;
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+    font-size: 14px; color: #fff; outline: none;
+    background: rgba(0, 0, 0, 0.2); transition: all 0.2s;
 }
-.input:focus { border-color: #534AB7; background: #fff; }
-.input-error { border-color: #D85A30 !important; }
-.error-msg { font-size: 12px; color: #D85A30; margin-top: 4px; }
+.input::placeholder { color: rgba(255,255,255,0.3); }
+.input:focus { border-color: #d8b4fe; background: rgba(0,0,0,0.4); box-shadow: 0 0 10px rgba(216,180,254,0.3); }
+.input-error { border-color: #ef4444 !important; }
+.error-msg { font-size: 12px; color: #fca5a5; margin-top: 4px; }
 
 .form-row {
     display: flex; justify-content: space-between; align-items: center;
@@ -274,30 +306,32 @@ function submit() {
 }
 .checkbox-label {
     display: flex; align-items: center; gap: 7px;
-    font-size: 13px; color: #666; cursor: pointer;
+    font-size: 13px; color: rgba(255,255,255,0.7); cursor: pointer;
 }
-.checkbox { accent-color: #534AB7; }
-.forgot-link { font-size: 13px; color: #534AB7; text-decoration: none; }
-.forgot-link:hover { text-decoration: underline; }
+.checkbox { accent-color: #a855f7; }
+.forgot-link { font-size: 13px; color: #d8b4fe; text-decoration: none; transition: 0.2s; }
+.forgot-link:hover { color: #fff; text-decoration: underline; text-shadow: 0 0 8px rgba(216,180,254,0.8); }
 
 .btn-submit {
     width: 100%; padding: 12px;
     border-radius: 10px; border: none;
-    background: #534AB7; color: #fff;
-    font-size: 15px; font-weight: 500;
-    cursor: pointer; transition: background 0.15s;
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+    color: #fff;
+    font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: 0.3s;
+    box-shadow: 0 0 15px rgba(192,132,252,0.5);
 }
-.btn-submit:hover { background: #3C3489; }
-.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(192,132,252,0.8); }
+.btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
 .divider {
     display: flex; align-items: center; gap: 12px;
     margin: 1.25rem 0;
 }
-.divider-line { flex: 1; height: 0.5px; background: #e0ddd5; }
-.divider-text { font-size: 12px; color: #bbb; }
+.divider-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+.divider-text { font-size: 12px; color: rgba(255,255,255,0.4); }
 
-.switch-text { text-align: center; font-size: 14px; color: #888; }
-.switch-link { color: #534AB7; font-weight: 500; text-decoration: none; }
-.switch-link:hover { text-decoration: underline; }
+.switch-text { text-align: center; font-size: 14px; color: rgba(255,255,255,0.6); }
+.switch-link { color: #d8b4fe; font-weight: 600; text-decoration: none; transition: 0.2s; }
+.switch-link:hover { color: #fff; text-decoration: underline; text-shadow: 0 0 8px rgba(216,180,254,0.8); }
 </style>

@@ -29,11 +29,11 @@ createInertiaApp({
         );
 
         // inject layout otomatis
-        page.default.layout = page.default.layout ?? (
-            name.startsWith('Auth/')
+        if (page.default.layout === undefined) {
+            page.default.layout = (name.startsWith('Auth/') || name === 'Welcome')
                 ? null
-                : AuthenticatedLayout
-        );
+                : AuthenticatedLayout;
+        }
 
         return page;
     },
@@ -43,13 +43,14 @@ createInertiaApp({
             components,
             directives,
             theme: {
-                defaultTheme: 'light',
+                defaultTheme: 'dark',
                 themes: {
                     light: {
-                        colors: {
-                            primary: '#534AB7',
-                        },
+                        colors: { primary: '#534AB7' },
                     },
+                    dark: {
+                        colors: { primary: '#a855f7', surface: '#1a103c' },
+                    }
                 },
             },
         });

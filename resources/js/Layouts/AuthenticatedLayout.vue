@@ -1,26 +1,29 @@
 <template>
-    <v-app :theme="'light'">
+    <v-app style="background: transparent;" class="anime-dashboard">
+        <!-- Anime Background -->
+        <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;">
+            <img src="/images/anime_bg.png" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;" />
+            <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(26, 16, 60, 0.8), rgba(45, 27, 84, 0.7), rgba(26, 16, 60, 0.95)); backdrop-filter: blur(2px);"></div>
+        </div>
         <!-- Sidebar -->
         <v-navigation-drawer
             v-model="drawer"
             :rail="false"
             permanent
             width="250"
-            style="background-color: #1a1d2e; border-right: none;"
+            style="background: rgba(20, 12, 45, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-right: 1px solid rgba(255,255,255,0.08); z-index: 10;"
         >
             <!-- Logo -->
             <div class="px-4 py-5">
-                <div class="d-flex align-center gap-3">
-                    <div
-                        style="
-                            width: 36px; height: 36px;
-                            background: #6c63ff;
-                            border-radius: 10px;
-                            display: flex; align-items: center; justify-content: center;
-                            font-weight: 700; color: white; font-size: 16px;
-                        "
-                    >A</div>
-                    <span style="color: white; font-weight: 700; font-size: 18px; letter-spacing: 0.3px;">AniRent</span>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <!-- Icon Container -->
+                    <div style="width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(to bottom right, #c084fc, #ec4899); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(168,85,247,0.6); flex-shrink: 0;">
+                        <svg style="width: 24px; height: 24px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <!-- Text -->
+                    <span style="font-size: 24px; font-weight: 800; letter-spacing: 0.05em; background: linear-gradient(to right, #d8b4fe, #fbcfe8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Inter', sans-serif;">AniRent</span>
                 </div>
             </div>
 
@@ -116,7 +119,7 @@
 
                 <!-- User Info -->
                 <div class="px-4 py-4">
-                    <div class="d-flex align-center gap-3 mb-3">
+                    <div v-if="$page.props.auth.user" class="d-flex align-center gap-3 mb-3">
                         <v-avatar
                             size="36"
                             :color="avatarColor"
@@ -162,7 +165,7 @@
         </v-navigation-drawer>
 
         <!-- Main Content -->
-        <v-main style="background-color: #f5f6fa; min-height: 100vh;">
+        <v-main style="background-color: transparent; min-height: 100vh; position: relative; z-index: 1;">
             <div class="pa-6" style="max-width: 1200px;">
                 <slot />
             </div>
@@ -178,16 +181,16 @@ import { VListItem, VBadge, VIcon } from 'vuetify/components'
 const page = usePage()
 const drawer = ref(true)
 
-const isAdmin = computed(() => page.props.auth.user.role === 'admin')
+const isAdmin = computed(() => page.props.auth.user?.role === 'admin')
 
 const userInitials = computed(() => {
-    const name = page.props.auth.user.name || ''
+    const name = page.props.auth.user?.name || ''
     return name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase()
 })
 
 const avatarColor = computed(() => {
     const colors = ['#6c63ff', '#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6']
-    const name = page.props.auth.user.name || ''
+    const name = page.props.auth.user?.name || ''
     return colors[name.charCodeAt(0) % colors.length]
 })
 
@@ -369,4 +372,54 @@ const SidebarItem = defineComponent({
         }
     },
 })
-</script>   
+</script>
+
+<style>
+/* Global anime theme overrides for Vuetify */
+.anime-dashboard .v-card,
+.anime-dashboard .v-sheet {
+    background: rgba(15, 10, 30, 0.8) !important; /* Gelap dan solid agar kontras tinggi */
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6) !important;
+}
+
+.anime-dashboard .v-table {
+    background: transparent !important;
+}
+.anime-dashboard .v-table th {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #f8fafc !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.anime-dashboard .v-table tr:hover td {
+    background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Ensure inputs in cards look good */
+.anime-dashboard .v-field {
+    background: rgba(0, 0, 0, 0.4) !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Sidebar active item glow */
+.anime-dashboard .v-list-item--active {
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.25) 0%, transparent 100%) !important;
+    border-left: 4px solid #a855f7;
+}
+
+/* Text Highlights */
+.anime-dashboard .text-h1, 
+.anime-dashboard .text-h2, 
+.anime-dashboard .text-h3, 
+.anime-dashboard .text-h4, 
+.anime-dashboard .text-h5, 
+.anime-dashboard .text-h6 {
+    color: #ffffff !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+</style>   
