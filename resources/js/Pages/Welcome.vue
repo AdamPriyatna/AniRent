@@ -99,8 +99,13 @@ export default {
                     
                     <div class="flex-1 relative flex justify-center items-center animate-float">
                         <!-- Decorative glowing orb behind image -->
-                        <div class="absolute w-[300px] h-[300px] bg-purple-500/30 rounded-full blur-[100px] -z-10"></div>
-                        <img src="/images/hero-samurai.jpg" alt="Anime Character" class="max-w-full h-auto max-h-[600px] drop-shadow-[0_0_40px_rgba(216,180,254,0.3)] object-contain rounded-3xl" />
+                        <div class="absolute w-[400px] h-[400px] bg-purple-600/20 rounded-full blur-[120px] -z-10"></div>
+                        <img 
+                            src="/images/hero-samurai.jpg" 
+                            alt="Anime Character" 
+                            class="max-w-full h-auto max-h-[700px] object-contain opacity-95 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700" 
+                            style="-webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 50%, transparent 100%); mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 50%, transparent 100%);"
+                        />
                     </div>
                 </section>
 
