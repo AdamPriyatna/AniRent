@@ -15,6 +15,7 @@ const form = useForm({
     deskripsi: props.unit.deskripsi ?? '',
     kondisi: props.unit.kondisi ?? '',
     harga_sewa: props.unit.harga_sewa ?? 0,
+    denda_per_hari: props.unit.denda_per_hari ?? 0,
     status: props.unit.status,
     foto: null,
     hapus_foto: 0,
@@ -124,20 +125,40 @@ function submit() {
                     </div>
                 </div>
 
-                <div class="form-group">
-                        <label class="label">Harga Sewa / Hari (Rp) <span class="required">*</span></label>
-                        <div class="input-prefix-wrap">
-                            <span class="input-prefix">Rp</span>
-                            <input
-                                v-model="form.harga_sewa"
-                                type="number"
-                                min="0"
-                                class="input input-with-prefix"
-                                :class="{ 'input-error': form.errors.harga_sewa }"
-                                placeholder="50000"
-                            />
-                        </div>
-                        <p v-if="form.errors.harga_sewa" class="error-msg">{{ form.errors.harga_sewa }}</p>
+                <div class="two-col">
+                    <div class="form-group">
+                            <label class="label">Harga Sewa / Hari (Rp) <span class="required">*</span></label>
+                            <div class="input-prefix-wrap">
+                                <span class="input-prefix">Rp</span>
+                                <input
+                                    v-model="form.harga_sewa"
+                                    type="number"
+                                    min="0"
+                                    class="input input-with-prefix"
+                                    :class="{ 'input-error': form.errors.harga_sewa }"
+                                    placeholder="50000"
+                                    @wheel="$event.target.blur()"
+                                />
+                            </div>
+                            <p v-if="form.errors.harga_sewa" class="error-msg">{{ form.errors.harga_sewa }}</p>
+                    </div>
+
+                    <div class="form-group">
+                            <label class="label">Denda Keterlambatan / Hari (Rp) <span class="required">*</span></label>
+                            <div class="input-prefix-wrap">
+                                <span class="input-prefix">Rp</span>
+                                <input
+                                    v-model="form.denda_per_hari"
+                                    type="number"
+                                    min="0"
+                                    class="input input-with-prefix"
+                                    :class="{ 'input-error': form.errors.denda_per_hari }"
+                                    placeholder="10000"
+                                    @wheel="$event.target.blur()"
+                                />
+                            </div>
+                            <p v-if="form.errors.denda_per_hari" class="error-msg">{{ form.errors.denda_per_hari }}</p>
+                    </div>
                 </div>
 
                 <div class="form-group">

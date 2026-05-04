@@ -161,22 +161,17 @@ class AdminBookingController extends Controller
         ]);
     }
 
-    /**
-     * Hitung denda per hari berdasarkan harga unit/bundle.
-     * Default: 10% dari harga sewa per hari, minimum Rp 5.000.
-     */
     private function dendaPerHari(Booking $booking): float
     {
-        $harga = 0;
-
-        if ($booking->bundle) {
-            $harga = $booking->bundle->harga_per_hari ?? 0;
-        } elseif ($booking->unit) {
-            $harga = $booking->unit->harga_per_hari ?? 0;
+        if ($booking->unit) {
+            return (float) ($booking->unit->denda_per_hari ?? 0);
         }
 
-        $denda = $harga * 0.1;
-        return max($denda, 5000);
+        if ($booking->bundle) {
+            return (float) $booking->bundle->units->sum('denda_per_hari');
+        }
+
+        return 0;
     }
 
     /**

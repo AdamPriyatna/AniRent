@@ -96,6 +96,7 @@ const statusLabel = (status) => {
                             <th>Nama Unit</th>
                             <th>Kategori</th>
                             <th>Harga Sewa</th>
+                            <th>Denda / Hari</th>
                             <th>Kondisi</th>
                             <th>Status</th>
                             <th>Aksi</th>
@@ -103,7 +104,7 @@ const statusLabel = (status) => {
                     </thead>
                     <tbody>
                         <tr v-if="units.data.length === 0">
-                            <td colspan="6" class="empty-row">Tidak ada unit ditemukan</td>
+                            <td colspan="7" class="empty-row">Tidak ada unit ditemukan</td>
                         </tr>
                         <tr v-for="unit in units.data" :key="unit.id">
                             <td>
@@ -121,6 +122,7 @@ const statusLabel = (status) => {
                                 </div>
                             </td>
                             <td class="unit-price">Rp {{ (unit.harga_sewa ?? 0).toLocaleString('id-ID') }}</td>
+                            <td class="unit-price" style="color: #fca5a5;">Rp {{ (unit.denda_per_hari ?? 0).toLocaleString('id-ID') }}</td>
                             <td class="text-muted">{{ unit.kondisi ?? '-' }}</td>
                             <td>
                                 <span :class="['pill', statusClass(unit.status)]">
